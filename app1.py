@@ -16,12 +16,10 @@ data = json.load(open("data.json"))
 
 def translate(w):
     w = w.lower()
-    matches = get_close_matches(w, data.keys(), 1)
-    print(matches)
     if w in data:
         return data[w]
-    elif len(matches) != 0:
-        return matches[0]
+    elif len(get_close_matches(w, data.keys(), 1)) > 0:
+        return "Did you mean {} instead".format(get_close_matches(w, data.keys(), 1)[0])
     else:
         return "The word doesn't exist. Please double check it."
 
